@@ -13,8 +13,12 @@ _print:
     //We pass the 3
     svc 0
 _main:
-    Mov x5, 1 //declare i in w2
-    b _loop
+    //Custom loop, x5 for starting number, and x7 for how many times you want 
+    //it to be repeated
+    Mov x5, #1
+    Mov x7, #1 
+    b _repeatFrom
+
     b _terminate
     
 _reboot:
@@ -38,6 +42,26 @@ _loop: // body of the loop goes here.
     SVC 0
     B.LE _loop // IF I <= 10 goto loop
 
+_repeat:
+    MOV x0, 1
+    ADR x1, helloworld //use adr to get address and store it
+    MOV x2, 12
+    MOV x16, #4
+    ADD x6, x6, 1
+    CMP x6, #10
+    SVC 0
+    B.LE _repeat
+
+_repeatFrom:
+    ADD x5, x5, #1
+    CMP x5, x7
+    MOV x0, #1
+    ADR x1, helloworld
+    MOV x2, 12
+    MOV x16, #4
+    SVC 0
+    B.LE _repeatFrom
+
 //If we did this by counting down
 //FOR I = 10 TO 1 STEP -1
 //... some statements...
@@ -45,4 +69,4 @@ _loop: // body of the loop goes here.
 //We can implement this as shown in Listing 4-3.
 
 helloworld:
-.ascii "hello world"
+.ascii "hello world \n"
