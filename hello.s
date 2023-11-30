@@ -37,8 +37,8 @@ _loop: // body of the loop goes here.
     CMP x5, #10 //compare value of w2 with 10
     MOV x0, #1
     ADR x1, helloworld
-    MOV x2, #12
-    MOV x16, #4
+    MOV x2, #12 //memory
+    MOV x16, #4 //print
     SVC 0
     B.LE _loop // IF I <= 10 goto loop
 
